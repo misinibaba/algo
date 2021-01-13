@@ -5,36 +5,30 @@ import (
 	"sort"
 )
 
-var ans [][]int
-func combinationSum(candidates []int, target int) [][]int {
-	ans = [][]int{}
+func combinationSum(candidates []int, target int) (ans [][]int) {
+	dfs := func(int, int) {}
 	sort.Ints(candidates)
-	backTrace(0, target, 0, make([]int, 0), candidates)
-	return ans
-}
-
-func backTrace(index, target, sum int, path, candidates []int) {
-	if sum == target {
-		var tem []int
-		for _, v := range path {
-			tem = append(tem, v)
-		}
-		ans = append(ans, tem)
-		return
-	}
-
-	for i := index; i < len(candidates); i++ {
-		if sum + candidates[i] > target {
+	var path []int
+	dfs = func(sum int, index int) {
+		if sum == target {
+			ans = append(ans, append([]int{}, path...))
 			return
 		}
 
-		path = append(path, candidates[i])
-		backTrace(i, target, sum + candidates[i], path, candidates)
-		path = path[:len(path) - 1]
-	}
-}
+		for i := index; i < len(candidates); i++ {
+			if sum + candidates[i] > target {
+				return
+			}
 
+			path = append(path, candidates[i])
+			dfs(candidates[i] + sum, i)
+			path = path[:len(path) - 1]
+		}
+	}
+	dfs(0, 0)
+	return
+}
 func main() {
-	res := combinationSum([]int{3,4,7,8}, 11)
+	res := combinationSum([]int{2,3,6,7}, 7)
 	fmt.Println(res)
 }

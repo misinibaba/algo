@@ -5,11 +5,11 @@ import (
 )
 
 func climbStairs(n int) int {
-	ans := []int{1, 1}
-	for i := 2; i <= n; i++ {
-		ans = append(ans, ans[i - 1] + ans[i - 2])
+	dp := []int{1, 2}
+	for i := 2; i < n; i++ {
+		dp = append(dp, dp[i - 1] + dp[i - 2])
 	}
-	return ans[n]
+	return dp[n - 1]
 }
 
 func main() {

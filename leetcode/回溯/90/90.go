@@ -14,6 +14,10 @@ func subsets(nums []int) (ans [][]int) {
 		}
 
 		for i := begin; i < len(nums); i++ {
+			if i > begin && nums[i] == nums[i - 1] {
+				continue
+			}
+
 			path = append(path, nums[i])
 			dfs(i + 1)
 			path = path[:len(path) - 1]
@@ -25,6 +29,6 @@ func subsets(nums []int) (ans [][]int) {
 
 
 func main() {
-	res := subsets([]int{1,2,3})
+	res := subsets([]int{1,2,2})
 	fmt.Println(res)
 }

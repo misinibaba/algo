@@ -5,18 +5,19 @@ import (
 )
 
 func uniquePaths(m int, n int) int {
-	ans := make([][]int, m)
+	dp := make([][]int, m)
 	for i := 0; i < m; i++ {
-		ans[i] = make([]int, n)
+		dp[i] = make([]int, n)
 		for j := 0; j < n; j++ {
 			if i == 0 || j == 0 {
-				ans[i][j] = 1
+				dp[i][j] = 1
 			} else {
-				ans[i][j] = ans[i - 1][j] + ans[i][j - 1]
+				dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
 			}
+
 		}
 	}
-	return ans[m - 1][n - 1]
+	return dp[m - 1][n - 1]
 }
 
 func main() {
