@@ -5,27 +5,26 @@ import (
 )
 
 func permute(nums []int) (ans [][]int) {
-	var dfs func(map[int]bool)
-	var path []int
-	dfs = func(used map[int]bool) {
+	var dfs func([]int, map[int]bool)
+	dfs = func(path []int, used map[int]bool) {
 		if len(path) == len(nums) {
 			ans = append(ans, append([]int{}, path...))
 			return
 		}
 
 		for i := 0; i < len(nums); i++ {
-			if used[i] {
+			if used[nums[i]] {
 				continue
 			}
 
-			used[i] = true
+			used[nums[i]] = true
 			path = append(path, nums[i])
-			dfs(used)
+			dfs(path, used)
 			path = path[:len(path) - 1]
-			used[i] = false
+			used[nums[i]] = false
 		}
 	}
-	dfs(make(map[int]bool))
+	dfs(make([]int, 0), make(map[int]bool))
 	return
 }
 

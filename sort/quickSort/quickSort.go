@@ -4,33 +4,28 @@ import "fmt"
 
 var nums []int
 func quickSort(left, right int) {
-	if left > right {
+	if left >= right {
 		return
 	}
 
-	tmp := 0
-	start := left
-	end := right
-
-	for start < end {
-		tmp = nums[start]
-		for nums[start] <= nums[end] && start < end {
-			end--
+	s, e := left, right
+	tmp := nums[left]
+	for s < e {
+		for nums[e] >= tmp && s < e {
+			e--
 		}
-		nums[start] = nums[end]
-
-		for nums[start] < nums[end] && start < end {
-			start++
+		for nums[s] <= tmp && s < e {
+			s++
 		}
-		nums[end] = tmp
+		nums[s], nums[e] = nums[e], nums[s]
 	}
-
-	quickSort(left, end - 1)
-	quickSort(start + 1, right)
+	nums[s], nums[left] = nums[left], nums[s]
+	quickSort(left, s - 1)
+	quickSort(e + 1, right)
 }
 
 func main() {
-	nums = []int{1,6,2,1,4,72,5,44,2}
+	nums = []int{3,4,2,1,5,5,9,8,7}
 	quickSort(0, len(nums) - 1)
 	fmt.Println(nums)
 }

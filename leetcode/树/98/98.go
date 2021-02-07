@@ -12,23 +12,19 @@ type TreeNode struct {
 }
 
 func isValidBST(root *TreeNode) bool {
-	pre := math.MinInt32
-	var dfs func(*TreeNode) bool
-	dfs = func(node *TreeNode) bool {
+	var check func(*TreeNode, int, int) bool
+	check = func(node *TreeNode, low int, high int) bool {
 		if node == nil {
 			return true
 		}
 
-		dfs(node.Left)
-		if node.Val < pre {
+		if node.Val <= low || node.Val >= high {
 			return false
 		}
-		pre = node.Val
-		dfs(node.Right)
 
-		return true
+		return check(node.Left, low, node.Val) && check(node.Right, node.Val, high)
 	}
-	return dfs(root)
+	return check(root, math.MinInt64, math.MaxInt64)
 }
 
 func main() {

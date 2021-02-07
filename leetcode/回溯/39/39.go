@@ -6,26 +6,24 @@ import (
 )
 
 func combinationSum(candidates []int, target int) (ans [][]int) {
-	dfs := func(int, int) {}
 	sort.Ints(candidates)
-	var path []int
-	dfs = func(sum int, index int) {
+	var dfs func(int, int, []int)
+	dfs = func(index int, sum int, path []int) {
 		if sum == target {
 			ans = append(ans, append([]int{}, path...))
 			return
 		}
 
 		for i := index; i < len(candidates); i++ {
-			if sum + candidates[i] > target {
-				return
+			if candidates[i] + sum > target {
+				break
 			}
-
 			path = append(path, candidates[i])
-			dfs(candidates[i] + sum, i)
+			dfs(i, sum + candidates[i], path)
 			path = path[:len(path) - 1]
 		}
 	}
-	dfs(0, 0)
+	dfs(0, 0, make([]int, 0))
 	return
 }
 func main() {

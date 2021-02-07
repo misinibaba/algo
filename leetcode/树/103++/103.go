@@ -9,24 +9,22 @@ type TreeNode struct {
 }
 
 func zigzagLevelOrder(root *TreeNode) [][]int {
-	var ans [][]int
-	var dfs func(*TreeNode, int)
+	var dfs func(node *TreeNode, level int)
+	ans := make([][]int, 0)
 	dfs = func(node *TreeNode, level int) {
-		if node == nil || node.Val == 0 {
+		if node == nil {
 			return
 		}
 
-		if level == len(ans) {
+		if len(ans) == level {
 			ans = append(ans, []int{})
 		}
 
 		if level % 2 == 0 {
 			ans[level] = append(ans[level], node.Val)
 		} else {
-			// 要是奇数就是从后往前插入
 			ans[level] = append([]int{node.Val}, ans[level]...)
 		}
-
 		dfs(node.Left, level + 1)
 		dfs(node.Right, level + 1)
 	}

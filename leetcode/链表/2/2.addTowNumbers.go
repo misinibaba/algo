@@ -8,27 +8,29 @@ type ListNode struct {
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	ans := new(ListNode)
+	var ans = new(ListNode)
 	head := ans
-	fix := 0
-	for l1 != nil || l2 != nil {
+	var sum, fix int
+	for l1 != nil || l2 != nil{
 		v1 := 0
 		if l1 != nil {
 			v1 = l1.Val
 		}
+
 		v2 := 0
 		if l2 != nil {
 			v2 = l2.Val
 		}
 
-		sum := v1 + v2 + fix
+		sum = v1 + v2 + fix
 		ans.Next = &ListNode{sum % 10, nil}
-		fix = sum / 10
 		ans = ans.Next
+		fix = sum / 10
 
 		if l1 != nil {
 			l1 = l1.Next
 		}
+
 		if l2 != nil {
 			l2 = l2.Next
 		}
@@ -36,7 +38,6 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	if fix > 0 {
 		ans.Next = &ListNode{fix, nil}
 	}
-
 	return head.Next
 }
 

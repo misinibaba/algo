@@ -7,23 +7,8 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	dummy := new(ListNode)
-	dummy.Next = head
-	first := dummy.Next
-	second := dummy.Next
+func reverseBetween(head *ListNode, m int, n int) *ListNode {
 
-	for n > 0 {
-		second = second.Next
-		n--
-	}
-
-	for second.Next != nil {
-		first = first.Next
-		second = second.Next
-	}
-	first.Next = first.Next.Next
-	return head
 }
 
 func main() {
@@ -39,8 +24,7 @@ func main() {
 		}
 	}
 	l1 = *l1.Next
-
-	res := removeNthFromEnd(&l1, 2)
+	res := reverseBetween(&l1, 2, 4)
 	for res != nil {
 		fmt.Println(res.Val)
 		res = res.Next

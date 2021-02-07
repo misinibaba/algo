@@ -5,9 +5,8 @@ import (
 )
 
 func subsets(nums []int) (ans [][]int) {
-	var dfs func(int)
-	var path []int
-	dfs = func(begin int) {
+	var dfs func(int, []int)
+	dfs = func(begin int, path []int) {
 		ans = append(ans, append([]int{}, path...))
 		if len(path) == len(nums) {
 			return
@@ -15,11 +14,11 @@ func subsets(nums []int) (ans [][]int) {
 
 		for i := begin; i < len(nums); i++ {
 			path = append(path, nums[i])
-			dfs(i + 1)
+			dfs(i + 1, path)
 			path = path[:len(path) - 1]
 		}
 	}
-	dfs(0)
+	dfs(0, make([]int, 0))
 	return
 }
 

@@ -16,7 +16,20 @@ var phoneMap = map[string]string{
 }
 
 func letterCombinations(digits string) (ans []string) {
+	var dfs func(int, string)
+	dfs = func(index int, path string) {
+		if len(path) == len(digits) {
+			ans = append(ans, path)
+			return
+		}
 
+		letter := phoneMap[digits[index:index+1]]
+		for _, v := range letter {
+			dfs(index + 1, path + string(v))
+		}
+	}
+	dfs(0, "")
+	return
 }
 
 func main() {

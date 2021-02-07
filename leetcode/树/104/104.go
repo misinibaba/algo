@@ -9,14 +9,17 @@ type TreeNode struct {
 }
 
 func maxDepth(root *TreeNode) int {
-	var dfs func(*TreeNode, int)
 	var ans int
+	var dfs func(node *TreeNode, level int)
 	dfs = func(node *TreeNode, level int) {
 		if node == nil {
 			return
 		}
 
-		ans = max(level, ans)
+		if level + 1 > ans {
+			ans = level + 1
+		}
+
 		dfs(node.Left, level + 1)
 		dfs(node.Right, level + 1)
 	}
@@ -24,12 +27,6 @@ func maxDepth(root *TreeNode) int {
 	return ans
 }
 
-func max (x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-}
 
 
 func main() {

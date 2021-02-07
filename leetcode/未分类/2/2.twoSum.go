@@ -4,12 +4,12 @@ import "fmt"
 
 func twoSum(nums []int, target int) []int {
 	numMap := make(map[int]int)
-	for k, num := range nums {
-		complement := target - num
+	for k, v := range nums {
+		complement := target - v
 		if val, ok := numMap[complement]; ok {
 			return []int{val, k}
 		}
-		numMap[num] = k
+		numMap[v] = k
 	}
 	return []int{}
 }

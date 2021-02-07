@@ -21,7 +21,11 @@ func check(l, r *TreeNode) bool {
 		return false
 	}
 
-	return l.Val == r.Val && check(l.Left, r.Right) && check(l.Right, r.Left)
+	if l.Val != r.Val {
+		return false
+	}
+
+	return check(l.Left, r.Right) && check(l.Right, r.Left)
 }
 
 func main() {

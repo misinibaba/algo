@@ -8,7 +8,26 @@ type ListNode struct {
 }
 
 func rotateRight(head *ListNode, k int) *ListNode {
+	dummy := new(ListNode)
+	dummy.Next = head
 
+	first := head
+	second := head
+
+	for k > 0 {
+		second = second.Next
+		k--
+	}
+
+	for second.Next != nil {
+		first = first.Next
+		second = second.Next
+	}
+
+	newHead := first.Next
+	second.Next = head
+	first.Next = nil
+	return newHead
 }
 
 func main() {

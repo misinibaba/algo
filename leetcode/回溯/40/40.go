@@ -7,29 +7,28 @@ import (
 
 func combinationSum2(candidates []int, target int) (ans [][]int) {
 	sort.Ints(candidates)
-	dfs := func(int, int) {}
-	var path []int
-	dfs = func(index int, sum int) {
+	var dfs func(int, int, []int)
+	dfs = func(begin int, sum int, path []int) {
 		if sum == target {
 			ans = append(ans, append([]int{}, path...))
 			return
 		}
 
-		for i := index; i < len(candidates); i++ {
+		for i := begin; i < len(candidates); i++ {
 			if sum + candidates[i] > target {
-				return
+				break
 			}
 
-			if i > index && candidates[i] == candidates[i - 1] {
+			if i > begin && candidates[i] == candidates[i - 1] {
 				continue
 			}
 
 			path = append(path, candidates[i])
-			dfs(i + 1, sum + candidates[i])
+			dfs(i + 1, sum + candidates[i], path)
 			path = path[:len(path) - 1]
 		}
 	}
-	dfs(0, 0)
+	dfs(0, 0, make([]int, 0))
 	return
 }
 

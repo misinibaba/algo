@@ -8,16 +8,13 @@ type ListNode struct {
 }
 
 func swapPairs(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
-	}
-
-	if head.Next == nil {
+	if head == nil || head.Next == nil {
 		return head
 	}
 
 	first := head
-	second := head.Next
+	second := first.Next
+
 	first.Next = swapPairs(second.Next)
 	second.Next = first
 	return second
